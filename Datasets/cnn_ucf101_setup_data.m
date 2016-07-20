@@ -4,7 +4,13 @@ function imdb = cnn_ucf101_setup_data(varargin)
 % this script requires UCF101 downloaded and frames extracted in frames
 % folder
 
-opts.dataDir = fullfile('data','UCF101') ;
+path = fullfile(fileparts(mfilename('fullpath')), ...
+'matconvnet', 'matlab');
+fprintf('add search path:%s\n', path);
+addpath(path);
+
+
+opts.dataDir = fullfile('/Users/fucus/Documents/irip/gait_recoginition/data','UCF101') ;
 opts.lite = false ;
 opts = vl_argparse(opts, varargin) ;
 
@@ -72,7 +78,7 @@ setNames = {'train','test'};
 setVal = [1,3];
 
 for s=1:numel(setNames)
-  for i=1:3
+  for i=1:1
     trainFl = fullfile(opts.dataDir, 'ucfTrainTestlist',sprintf('%slist%02d.txt',...
       setNames{s},i)) ;
     trainList = importdata(trainFl);
@@ -80,10 +86,10 @@ for s=1:numel(setNames)
       trainList = trainList.textdata;
     end
     for j=1:numel(trainList)
-      tmp = strsplit(trainList{j},'/');
-      [~,lab] = ismember(lower(tmp{2}(1:end-4)), lower(name)) ;
+      tmp = trainList{j};
+      [~,lab] = ismember(lower(tmp), lower(name)) ;
       if lab==0
-        error('cannot find the video %s',tmp{2});
+        error('cannot find the video %s',tmp);
       end
 %       if trainList.data(j) ~= labels(lab)
 %         error('Labels do not match for %s',tmp{2});

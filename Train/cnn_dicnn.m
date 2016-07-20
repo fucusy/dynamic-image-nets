@@ -1,15 +1,33 @@
 function [net, info] = cnn_dicnn(varargin)
 %CNN_DICNN Demonstrates fine-tuning a pre-trained CNN on UCF101 dataset
 
+path = fullfile(fileparts(mfilename('fullpath')), ...
+'..', 'matconvnet', 'matlab');
+fprintf('add search path:%s\n', path);
+addpath(path);
+
+
+path = fullfile(fileparts(mfilename('fullpath')), ...
+'..', 'matconvnet', 'examples');
+fprintf('add search path:%s\n', path);
+addpath(path);
+
+path = fullfile(fileparts(mfilename('fullpath')), ...
+'..', 'matconvnet', 'examples', 'imagenet');
+fprintf('add search path:%s\n', path);
+addpath(path);
+
+
 
 run(fullfile(fileparts(mfilename('fullpath')), ...
   '..', 'matconvnet', 'matlab', 'vl_setupnn.m')) ;
 
 addpath Layers Datasets
 
-opts.dataDir = fullfile('data','UCF101') ;
-opts.expDir  = fullfile('exp', 'UCF101') ;
-opts.modelPath = fullfile('models','imagenet-caffe-ref.mat');
+
+opts.dataDir = fullfile('/Users/fucus/Documents/irip/gait_recoginition/data','UCF101');
+opts.expDir  = fullfile('/Users/fucus/Documents/irip/gait_recoginition/data/UCF101/exp') ;
+opts.modelPath = fullfile('/Users/fucus/Documents/irip/gait_recoginition/data/UCF101/models','imagenet-caffe-ref.mat');
 [opts, varargin] = vl_argparse(opts, varargin) ;
 
 opts.numFetchThreads = 8 ;

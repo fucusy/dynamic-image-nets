@@ -36,11 +36,14 @@ for v=1:nVideos
   end
   
   if forward
-    Y(:,:,:,v) =  sum(bsxfun(@times,X(:,:,:,indv),...
-      reshape(single(fw),[1 1 1 numel(indv)])),4);    
+	a = sum(bsxfun(@times,X(:,:,:,indv),...
+      reshape(single(fw),[1 1 1 numel(indv)])),4); 
+    imshow(a);
+    Y(:,:,:,v) = a;
   else
-    Y(:,:,:,indv) = (bsxfun(@times,repmat(dzdy(:,:,:,v),[1,1,1,numel(indv)]),...
-      reshape(fw,[1 1 1 numel(indv)]))) ;
+    a = (bsxfun(@times,repmat(dzdy(:,:,:,v),[1,1,1,numel(indv)]),...
+      reshape(fw,[1 1 1 numel(indv)]))) ;    
+    Y(:,:,:,indv) = a;  
   end
 end
 %

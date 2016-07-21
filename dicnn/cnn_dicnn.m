@@ -24,10 +24,13 @@ run(fullfile(fileparts(mfilename('fullpath')), ...
 
 addpath Layers Datasets
 
+data_path='/Volumes/Passport/data/';
+data_id='caisa_dataset_b';
 
-opts.dataDir = fullfile('/Users/fucus/Documents/irip/gait_recoginition/data','UCF101');
-opts.expDir  = fullfile('/Users/fucus/Documents/irip/gait_recoginition/data/UCF101/exp') ;
-opts.modelPath = fullfile('/Users/fucus/Documents/irip/gait_recoginition/data/UCF101/models','imagenet-caffe-ref.mat');
+opts.dataDir = fullfile(data_path,data_id);
+opts.expDir  = fullfile(opts.dataDir, 'exp') ;
+opts.modelPath = fullfile(data_path, 'UCF101/models','imagenet-caffe-ref.mat');
+
 [opts, varargin] = vl_argparse(opts, varargin) ;
 
 opts.numFetchThreads = 8 ;
@@ -59,7 +62,7 @@ net = cnn_dicnn_init(net,opts);
 if exist(opts.imdbPath,'file')
   imdb = load(opts.imdbPath) ;
 else
-  imdb = cnn_ucf101_setup_data('dataDir', opts.dataDir, 'lite', opts.lite) ;
+  imdb = cnn_casia_b_setup_data('dataDir', opts.dataDir, 'lite', opts.lite) ;
   mkdir(opts.expDir) ;
   save(opts.imdbPath, '-struct', 'imdb') ;
 end
